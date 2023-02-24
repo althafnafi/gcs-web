@@ -1,5 +1,5 @@
 // Connect to ROS
-var ros = new ROSLIB.Ros({
+let ros = new ROSLIB.Ros({
   url: "ws://localhost:9090",
 });
 
@@ -15,22 +15,36 @@ ros.on("close", () => {
   console.log("Connection to websocket server closed.");
 });
 
+/* HTML element declaration */
+let is_pressed_el = document.querySelector("#is-pressed");
+
 /* Publisher */
-var dataPub = new ROSLIB.Topic({
+let dataPub = new ROSLIB.Topic({
   ros: ros,
   name: "/pub_data",
   messageType: "std_msgs/UInt8",
 });
 
-var dataToPub = new ROSLIB.Message({
-  data: 100,
+let dataToPub = new ROSLIB.Message({
+  data: -1,
 });
 
-dataPub.publish(dataToPub);
+setInterval(() => {
+  dataPub.publish(dataToPub);
+  console.log(`Publishing...`);
+  updateElements();
+}, 50);
 console.log(dataToPub.data);
 
+let updateElements = () => {
+  /* Update Elements*/
+  is_pressed_el.innerHTML =
+    dataToPub.data === 1 ? "Pressed!" : "Not pressed :(";
+  is_pressed_el.style.backgroundColor = dataToPub.data === 1 ? "lime" : "pink";
+};
+
 /* Subscriber */
-var joySub = new ROSLIB.Topic({
+let joySub = new ROSLIB.Topic({
   ros: ros,
   name: "/joy",
   messageType: "sensor_msgs/Joy",
@@ -38,6 +52,17 @@ var joySub = new ROSLIB.Topic({
 
 joySub.subscribe((msg) => {
   console.log(`Received message on ${joySub.name}: ${msg.buttons[0]}`);
-  dataToPub.data = msg.buttons;
-  // joySub.unsubscribe();
+  dataToPub.data = msg.buttons[0];
+  console.log(`dataToPub: ${dataToPub.data}`);
+});
+
+let imageTopic = new ROSLIB.Topic({
+  ros: ros,
+  name: "/camera/stream/compressed",
+  messageType: "sensor_msgs/CompressedImage",
+});
+
+imageTopic.subscribe((msg) => {
+  document.getElementById("front-cam").src =
+    "data:image/jpg;base64," + msg.data;
 });
