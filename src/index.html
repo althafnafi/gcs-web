@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en" data-theme="bumblebee" class="bg-neutral-focus">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ground Control Station</title>
+    <script src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+    <script src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+    <link rel="stylesheet" href="/dist/output.css">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@2.51.0/dist/full.css" rel="stylesheet" type="text/css" /> -->
+    <link rel="icon" href="assets/img/logo_amv.png">
+    <script async src="https://basicons.xyz/embed.js"> </script>
+</head>
+
+<input type="checkbox" id="cam1-modal" class="modal-toggle" />
+<label for="cam1-modal" class="modal cursor-pointer">
+    <label class="modal-box max-w-fit max-h-fit p-0" for="">
+        <div class="absolute top-0 left-0 bg-accent rounded-br-xl">
+            <h3 class=" text-accent-content text-xl p-2 font-bold">cam0</h3>
+        </div>
+        <img class="rounded-lg" src="../public/assets/img/placeholder.jpg" id="img-fs">
+    </label>
+</label>
+
+<body class="p-2">
+
+    <div>
+        <div id="is-pressed" style="background-color: pink;">
+            Is pressed!
+        </div>
+    </div>
+    <!-- IMAGE FRAME GROUPS -->
+    <div class="flex justify-between">
+
+        <div class="flex-col ">
+            <!-- <div class="stats shadow m-5">
+                <div class="stat py-2">
+                    <div class="stat-figure text-primary">
+                    </div>
+                    <div class="stat-title text-neutral">Gripper</div>
+                    <div class="stat-value text-success">ON</div>
+                </div>
+
+                <div class="stat py-2">
+                    <div class="stat-figure text-secondary">
+                    </div>
+                    <div class="stat-title">Page Views</div>
+                    <div class="stat-value text-secondary">2.6M</div>
+                </div>
+            </div> -->
+
+
+            <h1 class="text-accent-content text-bold text-xl">Gripper State</h1>
+            <div class="btn-group mx-5 my-2">
+                <input type="radio" name="options" data-title="On" class="btn" />
+                <input type="radio" name="options" data-title="Off" class="btn" checked />
+            </div>
+        </div>
+        <div id="img-frame-group" class="grid grid-cols-3 gap-2">
+            <!-- FIRST FRAME -->
+            <div id="img-frame-1" class="bg-accent rounded-xl py-2 px-2 flex flex-col">
+                <div class="flex justify-between">
+                    <div class="btn-group">
+                        <input type="radio" name="img1-opt" data-title="1" class="btn" />
+                        <input type="radio" name="img1-opt" data-title="2" class="btn" checked />
+                        <input type="radio" name="img1-opt" data-title="3" class="btn" />
+                        <input type="radio" name="img1-opt" data-title="4" class="btn" />
+                    </div>
+
+                    <label for="cam1-modal" class="btn px-2">
+                        <svg class="stroke-accent-content" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                            </path>
+                            <path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"></path>
+                            <circle cx="12" cy="12" r="3" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                            </circle>
+                        </svg>
+                    </label>
+
+                </div>
+                <img class="my-3 rounded-lg" src="../public/assets/img/placeholder.jpg" id="img-1">
+                <div class="flex-col justify-between">
+                    <div class="flex justify-between">
+                        <h3 class="py-1 text-accent-content">Brightness</h3>
+                        <h3 class="py-1 text-accent-content">[value]</h3>
+                    </div>
+                    <input type="range" min="0" max="100" value="40" class="range range-xs range-primary px-1" />
+                </div>
+                <div class="flex-col justify-between">
+                    <div class="flex justify-between">
+                        <h3 class="py-1 text-accent-content">Gamma Adj.</h3>
+                        <h3 class="py-1 text-accent-content">[value]</h3>
+                    </div>
+                    <input type="range" min="0" max="100" value="40" class="range range-xs range-primary px-1" />
+                </div>
+
+            </div>
+            <!-- SECOND FRAME -->
+            <div id="img-frame-2" class="bg-accent rounded-xl py-2 px-2 flex flex-col justify-between">
+                <div class="btn-group px-1">
+                    <input type="radio" name="img2-opt" data-title="1" class="btn" />
+                    <input type="radio" name="img2-opt" data-title="2" class="btn" checked />
+                    <input type="radio" name="img2-opt" data-title="3" class="btn" />
+                    <input type="radio" name="img2-opt" data-title="4" class="btn" />
+                </div>
+                <img class="my-3 rounded-lg" src="../public/assets/img/placeholder.jpg" id="img-2">
+                <div class="flex-col justify-between">
+                    <h3 class="py-1 text-accent-content">Brightness</h3>
+                    <input type="range" min="0" max="100" value="40" class="range range-xs range-primary px-1" />
+                </div>
+            </div>
+            <!-- THIRD FRAME -->
+            <div id="img-frame-3" class="bg-accent rounded-xl py-2 px-2 flex flex-col justify-between">
+                <div class="btn-group px-1">
+                    <input type="radio" name="img3-opt" data-title="1" class="btn" />
+                    <input type="radio" name="img3-opt" data-title="2" class="btn" checked />
+                    <input type="radio" name="img3-opt" data-title="3" class="btn" />
+                    <input type="radio" name="img3-opt" data-title="4" class="btn" />
+                </div>
+                <img class="my-3 rounded-lg" src="../public/assets/img/placeholder.jpg" id="img-3">
+                <input type="range" min="0" max="100" value="40" class="range range-xs range-primary px-1" />
+            </div>
+        </div>
+    </div>
+    <!-- END OF IMAGE FRAME GROUPS -->
+
+
+    <!-- <script src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+    <script src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script> -->
+    <!-- ROS script -->
+    <script src="ros_script.js"></script>
+</body>
+
+</html>

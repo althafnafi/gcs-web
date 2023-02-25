@@ -43,6 +43,12 @@ let updateElements = () => {
   is_pressed_el.style.backgroundColor = dataToPub.data === 1 ? "lime" : "pink";
 };
 
+let joyData = new ROSLIB.Message({
+  header: null,
+  axes: null,
+  buttons: null,
+});
+
 /* Subscriber */
 let joySub = new ROSLIB.Topic({
   ros: ros,
@@ -52,8 +58,10 @@ let joySub = new ROSLIB.Topic({
 
 joySub.subscribe((msg) => {
   console.log(`Received message on ${joySub.name}: ${msg.buttons[0]}`);
+  joyData = msg;
   dataToPub.data = msg.buttons[0];
-  console.log(`dataToPub: ${dataToPub.data}`);
+  console.log(joyData);
+  // console.log(`dataToPub: ${dataToPub.data}`);
 });
 
 let imageTopic = new ROSLIB.Topic({
@@ -63,6 +71,6 @@ let imageTopic = new ROSLIB.Topic({
 });
 
 imageTopic.subscribe((msg) => {
-  document.getElementById("front-cam").src =
-    "data:image/jpg;base64," + msg.data;
+  document.getElementById("img-1").src = "data:image/jpg;base64," + msg.data;
+  document.getElementById("img-fs").src = "data:image/jpg;base64," + msg.data;
 });
