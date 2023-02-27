@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-theme="bumblebee" class="bg-neutral-focus font-jetbrains">
+<html lang="en" data-theme="bumblebee" class="bg-accent-focus font-jetbrains">
 
 <head>
     <meta charset="utf-8">
@@ -24,72 +24,83 @@
     </label>
 </label>
 
-<body class="p-2">
-    <!-- 
-    <div>
-        <div id="is-pressed" style="background-color: pink;">
-            Is pressed!
-        </div>
-    </div> -->
+<body class="h-full overflow-hidden">
 
-    <!-- IMAGE FRAME GROUPS -->
-    <div class="flex justify-between">
+    <div id="is-pressed" class="bg-error text-xs px-2">
+        Currently not connected to ROS... Please refresh!
+    </div>
+    <div class=" flex flex-col">
+        <!-- IMAGE FRAME GROUPS -->
+        <div class="flex justify-between p-2">
+            <div class="flex">
+                <div class="">
+                    <div class="drop-shadow-md mx-auto absolute badge badge-primary text-xl px-5 py-3">States
+                    </div>
+                    <div class="stats stats-vertical shadow m-2 rounded-md p-0 mt-5">
+                        <div class="stat p-0">
+                            <div class="flex justify-start">
+                                <div id="joy-state-color" class="w-2 bg-success pr-2"></div>
+                                <div class="mx-3 my-2">
+                                    <h1 class="text-info-content text-xl">Gripper</h1>
+                                    <div class="btn-group my-1">
+                                        <input type="radio" name="gripper-radio" data-title="On" class="btn btn-sm" />
+                                        <input type="radio" name="gripper-radio" data-title="Off" class="btn btn-sm"
+                                            checked />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-        <div class="pr-4">
-            <div class="drop-shadow-md font-bold absolute badge badge-primary text-xl px-3 py-3">States</div>
-            <div class="stats stats-vertical shadow m-2 rounded-md p-0 mt-5">
-                <div class="stat p-0">
-                    <div class="flex justify-start">
-                        <div class="w-2 bg-success pr-2"></div>
-                        <div class="mx-3 my-2">
-                            <h1 class="text-info-content text-xl">Gripper</h1>
-                            <div class="btn-group my-1">
-                                <input type="radio" name="gripper-radio" data-title="On" class="btn btn-sm" />
-                                <input type="radio" name="gripper-radio" data-title="Off" class="btn btn-sm" checked />
+                        <div class="stat p-0">
+                            <div class="flex justify-start">
+                                <div id="ks-state-color" class="w-2 bg-info pr-2"></div>
+                                <div class="mx-3 my-2">
+                                    <h1 class="text-info-content text-xl">Killswitch</h1>
+                                    <div class="btn-group my-1">
+                                        <input type="radio" name="killswitch-radio" data-title="Hw"
+                                            class="btn btn-sm" />
+                                        <input type="radio" name="killswitch-radio" data-title="On"
+                                            class="btn btn-sm" />
+                                        <input type="radio" name="killswitch-radio" data-title="Off" class="btn btn-sm"
+                                            checked />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="stat p-0">
+                            <div class="flex justify-start">
+                                <div id="other-state-color" class="w-2 bg-error pr-2"></div>
+                                <div class="mx-3 my-2">
+                                    <h1 class="text-info-content text-xl">Joystick Toggle</h1>
+                                    <div class="btn-group my-1">
+                                        <input id="other-on" type="radio" value="1" name="other-radio" data-title="On"
+                                            class="btn btn-sm" />
+                                        <input id="other-off" type="radio" value="0" name="other-radio" data-title="Off"
+                                            class="btn btn-sm" checked />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- <div class="flex w-full">
+                    <div class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">content</div>
+                    <div class="divider divider-horizontal">OR</div>
+                    <div class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">content</div>
+                    <div class="divider divider-horizontal">OR</div>
+                    <div class="grid h-20 flex-grow card bg-base-300 rounded-box place-items-center">content</div>
+                </div> -->
+
                 </div>
-
-                <div class="stat p-0">
-                    <div class="flex justify-start">
-                        <div class="w-2 bg-warning pr-2"></div>
-                        <div class="mx-3 my-2">
-                            <h1 class="text-info-content text-xl">Killswitch</h1>
-                            <div class="btn-group my-1">
-                                <input type="radio" name="killswitch-radio" data-title="Hw" class="btn btn-sm" />
-                                <input type="radio" name="killswitch-radio" data-title="On" class="btn btn-sm" />
-                                <input type="radio" name="killswitch-radio" data-title="Off" class="btn btn-sm"
-                                    checked />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="stat p-0">
-                    <div class="flex justify-start">
-                        <div class="w-2 bg-error pr-2"></div>
-                        <div class="mx-3 my-2">
-                            <h1 class="text-info-content text-xl">Other State</h1>
-                            <div class="btn-group my-1">
-                                <input type="radio" name="other-radio" data-title="On" class="btn btn-sm" />
-                                <input type="radio" name="other-radio" data-title="Off" class="btn btn-sm" checked />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
-            </div>
-            <!-- <div class="stats shadow m-5">
+                <!-- <div class="stats shadow m-5">
                 <div class="stat py-2">
                     <div class="stat-figure text-primary">
                     </div>
                     <div class="stat-title text-neutral">Gripper</div>
                     <div class="stat-value text-success">ON</div>
                 </div>
-
+                
                 <div class="stat py-2">
                     <div class="stat-figure text-secondary">
                     </div>
@@ -100,91 +111,250 @@
 
 
 
-        </div>
-        <div id="img-frame-group" class="grid grid-cols-3 gap-2">
-            <!-- FIRST FRAME -->
-            <div id="img-frame-1" class="drop-shadow-md bg-accent rounded-xl py-2 px-2 flex flex-col">
-                <div class="py-1">
-                    <div class="flex justify-between">
-                        <div class="btn-group">
-                            <input type="radio" name="img1-opt" data-title="1" class="btn" />
-                            <input type="radio" name="img1-opt" data-title="2" class="btn" checked />
-                            <input type="radio" name="img1-opt" data-title="3" class="btn" />
-                            <input type="radio" name="img1-opt" data-title="4" class="btn" />
+            </div>
+
+            <div id="img-frame-group" class="flex space-x-2">
+                <!-- FIRST FRAME -->
+                <div id="img-frame-1" class="drop-shadow-md bg-accent rounded-xl py-2 px-2 flex flex-col">
+                    <div class="py-1">
+                        <div class="flex justify-between">
+                            <div class="btn-group">
+                                <input type="radio" name="img1-opt" data-title="1" class="btn btn-sm" />
+                                <input type="radio" name="img1-opt" data-title="2" class="btn btn-sm" checked />
+                                <input type="radio" name="img1-opt" data-title="3" class="btn btn-sm" />
+                                <input type="radio" name="img1-opt" data-title="4" class="btn btn-sm" />
+                            </div>
+
+                            <label for="cam1-modal" class="btn btn-sm px-3">
+                                <svg class="stroke-accent-content" width="16" height="16" viewBox="0 0 24 24"
+                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                    </path>
+                                    <path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <circle cx="12" cy="12" r="3" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                    </circle>
+                                </svg>
+                            </label>
+
                         </div>
+                    </div>
+                    <div class="relative mt-3">
+                        <div
+                            class="badge badge-primary absolute mx-auto right-0 left-0 text-primary-content lg:text-lg lg:px-3">
+                            cam0
+                        </div>
+                        <img class="my-3 rounded-lg" src="../public/assets/img/placeholder.jpg" id="img-1">
+                    </div>
+                    <div class="flex-col justify-between">
+                        <div class="flex justify-between items-baseline">
+                            <div class="badge badge-primary badge-outline py-0 ">Brightness</div>
+                            <!-- <h3 class="py-1 text-accent-content">Brightness</h3> -->
+                            <h3 id="cam0-brightness" class="py-1 text-accent-content">[value]</h3>
+                        </div>
+                        <input type="range" min="0" max="100" value="20" class="range range-xs range-primary" />
+                    </div>
+                    <div class="flex-col justify-between">
+                        <div class="flex justify-between items-baseline">
+                            <div class="badge badge-primary badge-outline py-0">Gamma Adj.</div>
+                            <h3 id="cam0-gamma" class="py-1 text-accent-content">[value]</h3>
+                        </div>
+                        <input id="cam0-gamma-slider" type="range" min="0" max="100" value="40"
+                            class="range range-xs range-primary" />
+                    </div>
 
-                        <label for="cam1-modal" class="btn px-3">
-                            <svg class="stroke-accent-content" width="20" height="20" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                </path>
-                                <path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke-width="2"
-                                    stroke-linecap="round" stroke-linejoin="round"></path>
-                                <circle cx="12" cy="12" r="3" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round">
-                                </circle>
-                            </svg>
-                        </label>
+                </div>
+                <!-- SECOND FRAME -->
 
+                <div id="img-frame-2"
+                    class="drop-shadow-md bg-accent rounded-xl py-2 px-2 flex flex-col justify-between">
+                    <div class="btn-group px-1">
+                        <input type="radio" name="img2-opt" data-title="1" class="btn" />
+                        <input type="radio" name="img2-opt" data-title="2" class="btn" checked />
+                        <input type="radio" name="img2-opt" data-title="3" class="btn" />
+                        <input type="radio" name="img2-opt" data-title="4" class="btn" />
+                    </div>
+                    <img class="my-3 rounded-lg" src="../public/assets/img/placeholder.jpg" id="img-2">
+                    <div class="flex-col justify-between">
+                        <h3 class="py-1 text-accent-content">Brightness</h3>
+                        <input type="range" min="0" max="100" value="50" class="range range-xs range-primary px-1" />
                     </div>
                 </div>
-                <div class="relative mt-3">
-                    <div
-                        class="badge badge-primary absolute mx-auto right-0 left-0 text-primary-content lg:text-lg lg:font-bold lg:px-3">
-                        cam0
+                <!-- THIRD FRAME -->
+                <div id="img-frame-3"
+                    class="drop-shadow-md bg-accent rounded-xl py-2 px-2 flex flex-col justify-between">
+                    <div class="btn-group px-1">
+                        <input type="radio" name="img3-opt" data-title="1" class="btn" />
+                        <input type="radio" name="img3-opt" data-title="2" class="btn" checked />
+                        <input type="radio" name="img3-opt" data-title="3" class="btn" />
+                        <input type="radio" name="img3-opt" data-title="4" class="btn" />
                     </div>
-                    <img class="my-3 rounded-lg" src="../public/assets/img/placeholder.jpg" id="img-1">
-                </div>
-                <div class="flex-col justify-between">
-                    <div class="flex justify-between items-baseline">
-                        <div class="badge badge-primary badge-outline py-0 ">Brightness</div>
-                        <!-- <h3 class="py-1 text-accent-content">Brightness</h3> -->
-                        <h3 class="py-1 text-accent-content">[value]</h3>
-                    </div>
-                    <input type="range" min="0" max="100" value="40" class="range range-xs range-primary" />
-                </div>
-                <div class="flex-col justify-between">
-                    <div class="flex justify-between">
-                        <div class="badge badge-primary badge-outline py-0">Gamma Adj.</div>
-                        <h3 class="py-1 text-accent-content">[value]</h3>
-                    </div>
+                    <img class="my-3 rounded-lg" src="../public/assets/img/placeholder.jpg" id="img-3">
                     <input type="range" min="0" max="100" value="40" class="range range-xs range-primary px-1" />
                 </div>
-
             </div>
-            <!-- SECOND FRAME -->
-            <div id="img-frame-2" class="drop-shadow-md bg-accent rounded-xl py-2 px-2 flex flex-col justify-between">
-                <div class="btn-group px-1">
-                    <input type="radio" name="img2-opt" data-title="1" class="btn" />
-                    <input type="radio" name="img2-opt" data-title="2" class="btn" checked />
-                    <input type="radio" name="img2-opt" data-title="3" class="btn" />
-                    <input type="radio" name="img2-opt" data-title="4" class="btn" />
-                </div>
-                <img class="my-3 rounded-lg" src="../public/assets/img/placeholder.jpg" id="img-2">
-                <div class="flex-col justify-between">
-                    <h3 class="py-1 text-accent-content">Brightness</h3>
-                    <input type="range" min="0" max="100" value="40" class="range range-xs range-primary px-1" />
-                </div>
-            </div>
-            <!-- THIRD FRAME -->
-            <div id="img-frame-3" class="drop-shadow-md bg-accent rounded-xl py-2 px-2 flex flex-col justify-between">
-                <div class="btn-group px-1">
-                    <input type="radio" name="img3-opt" data-title="1" class="btn" />
-                    <input type="radio" name="img3-opt" data-title="2" class="btn" checked />
-                    <input type="radio" name="img3-opt" data-title="3" class="btn" />
-                    <input type="radio" name="img3-opt" data-title="4" class="btn" />
-                </div>
-                <img class="my-3 rounded-lg" src="../public/assets/img/placeholder.jpg" id="img-3">
-                <input type="range" min="0" max="100" value="40" class="range range-xs range-primary px-1" />
-            </div>
+            <!-- END OF IMAGE FRAME GROUPS -->
         </div>
-        <!-- END OF IMAGE FRAME GROUPS -->
+        <!-- TABLES FRAME GROUP -->
+        <div class="flex space-x-2 space-y-2 items-start flex-wrap basis-1/2 mx-2">
+            <!-- PID CONSTANTS TABLE -->
+            <div class=" pb-2 px-2 flex flex-col items-center bg-accent rounded-md">
+                <div class="drop-shadow-xl badge badge-primary badge-outline font-bold text-md my-2 p-3">PID Constants
+                </div>
+                <div class="drop-shadow-xl overflow-x-auto">
+                    <table class="table table-compact table-zebra w-full max-h-full">
+                        <thead>
+                            <tr>
+                                <th>CONST</th>
+                                <th>Yaw C.</th>
+                                <th>Depth C.</th>
+                                <th>X C.</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Kp</th>
+                                <td>1.2</td>
+                                <td>0.52</td>
+                                <td>0.52</td>
+                            </tr>
+                            <tr>
+                                <th>Ki</th>
+                                <td>3.4</td>
+                                <td>1.23</td>
+                                <td>1.01</td>
+                            </tr>
+                            <tr>
+                                <th>Kd</th>
+                                <td>0.12</td>
+                                <td>2.22</td>
+                                <td>1.42</td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- PID TABLE END -->
+
+            <!-- HORIZONTAL THRUSTERS TABLE -->
+            <div class=" pb-2 px-2 flex flex-col items-center bg-accent rounded-md max-h-fit">
+                <div class="drop-shadow-xl badge badge-primary badge-outline font-bold text-md my-2 p-3">Horz. Thrusters
+                </div>
+                <div class="drop-shadow-xl overflow-x-auto">
+                    <table class="table table-compact table-zebra w-full max-h-full">
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Left</th>
+                                <th>Right</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Front</th>
+                                <td>
+                                    <div class="badge badge-success">1750</div>
+                                </td>
+                                <td>
+                                    <div class="badge badge-error">1300</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Back</th>
+                                <td>
+                                    <div class="badge badge-ghost">1500</div>
+                                </td>
+                                <td>
+                                    <div class="badge badge-success">1625</div>
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- HORIZONTAL THRUSTERS END -->
+
+            <!-- VERTICAL THRUSTERS TABLE -->
+            <div class=" pb-2 px-2 flex flex-col items-center bg-accent rounded-md max-h-fit">
+                <div class="drop-shadow-xl badge badge-primary badge-outline font-bold text-md my-2 p-3">Vert. Thrusters
+                </div>
+                <div class="drop-shadow-xl overflow-x-auto">
+                    <table class="table table-compact table-zebra w-full max-h-full">
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Left</th>
+                                <th>Right</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Front</th>
+                                <td>
+                                    <div class="badge badge-ghost">1500</div>
+                                </td>
+                                <td>
+                                    <div class="badge badge-error">1250</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Back</th>
+                                <td>
+                                    <div class="badge badge-success">1800</div>
+                                </td>
+                                <td>
+                                    <div class="badge badge-success">1625</div>
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- VERTICAL THRUSTERS END -->
+
+            <!-- VERTICAL THRUSTERS TABLE -->
+            <div class="pb-2 px-2 flex flex-col items-center bg-accent rounded-md max-h-fit">
+                <div class="drop-shadow-xl badge badge-primary badge-outline font-bold text-md my-2 p-3">
+
+                </div>
+                <div class="drop-shadow-xl overflow-x-auto">
+                    <table class="table table-compact table-zebra w-full max-h-full">
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Left</th>
+                                <th>Right</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Front</th>
+                                <td>
+                                    <div class="badge badge-ghost">1500</div>
+                                </td>
+                                <td>
+                                    <div class="badge badge-error">1250</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Back</th>
+                                <td>
+                                    <div class="badge badge-success">1800</div>
+                                </td>
+                                <td>
+                                    <div class="badge badge-success">1625</div>
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- VERTICAL THRUSTERS END -->
+
+        </div>
     </div>
 
 
     <!-- <script src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
-    <script src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script> -->
+        <script src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script> -->
     <!-- ROS script -->
     <script src="ros_script.js"></script>
 </body>
